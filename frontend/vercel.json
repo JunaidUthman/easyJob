@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "from": "/(.*)", "to": "/index.html" }
+    { "destination": "/index.html" }
   ]
 }
