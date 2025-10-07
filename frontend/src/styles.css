@@ -1,0 +1,16 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Optional: set a global font */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fff; /* default background */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+/* You can add global styles to this file, and also import other style files */

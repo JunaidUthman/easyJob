@@ -1,0 +1,100 @@
+<!-- home.component.html -->
+<div class="home-container">
+  <div class="home-content">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>Discover Your Next Opportunity</h1>
+      <p>Explore thousands of jobs and internships tailored to your skills</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-container">
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'trending-jobs'"
+        (click)="setActiveTab('trending-jobs')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+        </svg>
+        Trending Jobs
+      </button>
+      
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'trending-internships'"
+        (click)="setActiveTab('trending-internships')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+        </svg>
+        Trending Internships
+      </button>
+      
+      <button 
+        class="tab-btn" 
+        [class.active]="activeTab === 'saved-jobs'"
+        (click)="setActiveTab('saved-jobs')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+        </svg>
+        Saved Jobs
+      </button>
+    </div>
+
+    <!-- Jobs List -->
+    <div class="jobs-list">
+      <div class="job-card" *ngFor="let job of displayedJobs">
+        
+        <!-- Company Image -->
+        <div class="job-image">
+          <!-- <img [src]="job.image" [alt]="job.company" onerror="this.src='/images/placeholder.jpg'"> -->
+        </div>
+
+        <!-- Job Details -->
+        <div class="job-details">
+          <div class="job-header">
+            <div>
+              <h3 class="job-title">{{ job.title }}</h3>
+              <p class="job-company">{{ job.company }}</p>
+            </div>
+            <span class="job-date">{{ job.date }}</span>
+          </div>
+
+          <div class="job-meta">
+            <span class="job-field">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              {{ job.field }}
+            </span>
+          </div>
+
+          <p class="job-description">{{ job.description }}</p>
+
+          <!-- Action Buttons -->
+          <div class="job-actions">
+            <button class="btn-apply" (click)="applyJob(job.id)">
+              Apply Now
+            </button>
+            <button class="btn-save" (click)="saveJob(job.id)" *ngIf="activeTab !== 'saved-jobs'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/>
+              </svg>
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="displayedJobs.length === 0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#cbd5e1" viewBox="0 0 24 24">
+          <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+        </svg>
+        <h3>No jobs found</h3>
+        <p>Check back later for new opportunities</p>
+      </div>
+    </div>
+
+  </div>
+</div>

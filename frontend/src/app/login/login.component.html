@@ -1,0 +1,53 @@
+<div class="page-container">
+    <div class="signup-container">
+    <div class="signup-header">
+      <h1>Nice to see u again!</h1>
+      <p>Login to find your dream job! only by one click</p>
+    </div>
+
+    <form id="signupForm" (ngSubmit)="onSubmit()">
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <input type="email" id="email" name="email" placeholder="your.email@example.com" required [(ngModel)]="email">
+        </div>
+        <div class="error-message" id="emailError" *ngIf="emailError">Please enter a valid email</div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <input type="password" id="password" name="password" placeholder="Create a strong password" required [(ngModel)]="password">
+          <svg class="toggle-password" onclick="togglePassword('password')" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </div>
+        <div class="password-strength">
+          <div class="password-strength-bar" id="strengthBar"></div>
+        </div>
+        <div class="error-message" id="passwordError" *ngIf="passwordError">Password must be at least 4 characters</div>
+      </div>
+
+      <button type="submit"  class="submit-btn">Create Account</button>
+      <div class="error-message" id="usernameError" *ngIf="UserExists">The informations you submited are not correct</div>
+
+
+      <div class="login-link">
+        You d'ont have an account? <a [routerLink]="['/signup']">Sign In</a>
+      </div>
+    </form>
+  </div>
+</div>
+

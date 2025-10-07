@@ -1,0 +1,201 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+    
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #e8f5ed 0%, #f0f4f2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .page-container{
+        display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signup-container {
+        margin-top: 70px;
+        margin-bottom: 70px;
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(47, 164, 109, 0.15);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .signup-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #2fa46d, #25845a);
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .signup-header h1 {
+      font-size: 2rem;
+      color: #1e3d2d;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .signup-header p {
+      color: #5a6c64;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      color: #1e3d2d;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: #2fa46d;
+      pointer-events: none;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.875rem 1rem 0.875rem 3rem;
+      border: 2px solid #e0e7e4;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #1e3d2d;
+      transition: all 0.3s ease;
+      background: #f8faf9;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #2fa46d;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(47, 164, 109, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: #94a3b8;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 1rem;
+      cursor: pointer;
+      color: #5a6c64;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-password:hover {
+      color: #2fa46d;
+    }
+
+    .password-strength {
+      margin-top: 0.5rem;
+      height: 4px;
+      background: #e0e7e4;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      background: #2fa46d;
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #2fa46d, #25845a);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(47, 164, 109, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(47, 164, 109, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #5a6c64;
+      font-size: 0.9rem;
+    }
+
+    .login-link a {
+      color: #2fa46d;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .login-link a:hover {
+      color: #25845a;
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .signup-container {
+        padding: 2rem 1.5rem;
+      }
+
+      .signup-header h1 {
+        font-size: 1.75rem;
+      }
+    }

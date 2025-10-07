@@ -1,0 +1,17 @@
+<header>
+  <div [routerLink]="['/']" class="logo">JobFinder</div>
+  <nav>
+
+    <a *ngIf="!isAuthenticated()" [routerLink]="['/signup']">Get Started</a>
+    <a *ngIf="!isAuthenticated()" [routerLink]="['/login']">Log In</a>
+    <a  [routerLink]="['/jobs']">Trending Jobs</a>
+    
+
+
+    <a *ngIf="isAuthenticated()" [routerLink]="['/login']">Proile</a>
+    <a *ngIf="isAuthenticated()" [routerLink]="['/login']">Log Out</a>
+
+
+    <a  [routerLink]="['/login']">Contact Us</a>
+  </nav>
+</header>
