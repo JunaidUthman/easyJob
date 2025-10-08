@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../../environments/environment';
 export interface SignupRequest {
   username: string;
   email: string;
@@ -27,8 +27,8 @@ export interface LoginResponse {
 })
 export class AuthServiceService {
 
-  private signupUrl = 'http://localhost:8080/api/auth/signup';
-  private loginUrl = 'http://localhost:8080/api/auth/login';
+  private signupUrl = `${environment.apiUrl}/auth/signup`;
+  private loginUrl = `${environment.apiUrl}/auth/login`;
 
   constructor(private http: HttpClient) { }
 
