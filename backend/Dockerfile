@@ -25,9 +25,6 @@ WORKDIR /app
 # Copy the jar file from build stage
 COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Copy .env file
-COPY .env .env
-
 # Expose port
 EXPOSE 8080
 

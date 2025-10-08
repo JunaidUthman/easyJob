@@ -8,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BackendApplication {
 
     public static void main(String[] args) {
-        Dotenv dotenv = Dotenv.load();
+         Dotenv dotenv = Dotenv.configure()
+        .ignoreIfMissing() // Ne plante pas si .env n'existe pas(dans le serveur)
+        .load();
 
         System.setProperty("DB_URL", dotenv.get("DB_URL"));
         System.setProperty("DB_USERNAME", dotenv.get("DB_USERNAME"));
