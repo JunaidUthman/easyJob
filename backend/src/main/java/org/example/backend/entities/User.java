@@ -1,10 +1,7 @@
 package org.example.backend.entities;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.List;
-
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -18,7 +15,18 @@ public class User {
     private String email;
     private String password;
 
-    // Many-to-Many with Job
+
+
+    // Many-to-Many with Role
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    // Many-to-Many with Job (apply jobs)
     @ManyToMany
     @JoinTable(
             name = "user_jobs",
@@ -27,9 +35,13 @@ public class User {
     )
     private Set<Job> jobs = new HashSet<>();
 
-    // One-to-Many with Notification
+    // 🔹 One-to-Many with Notification
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
+
+    // 🔹 One-to-Many: User creates many jobs
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Job> createdJobs = new ArrayList<>();
 
     public User() {}
 
@@ -46,9 +58,16 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
+
+    public Set<Role> getRoles() { return roles; }
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
+
     public Set<Job> getJobs() { return jobs; }
     public void setJobs(Set<Job> jobs) { this.jobs = jobs; }
 
     public List<Notification> getNotifications() { return notifications; }
     public void setNotifications(List<Notification> notifications) { this.notifications = notifications; }
+
+    public List<Job> getCreatedJobs() { return createdJobs; }
+    public void setCreatedJobs(List<Job> createdJobs) { this.createdJobs = createdJobs; }
 }

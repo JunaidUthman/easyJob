@@ -66,6 +66,40 @@
       margin-bottom: 1.5rem;
       position: relative;
     }
+    /* Style the select input like the other input fields */
+    .form-group select {
+      width: 100%;
+      padding: 0.875rem 1rem 0.875rem 3rem;
+      border: 2px solid #e0e7e4;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #94a3b8;
+      transition: all 0.3s ease;
+      background: #f8faf9;
+      cursor: pointer;
+    }
+
+    .form-group select:focus {
+      outline: none;
+      border-color: #2fa46d;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(47, 164, 109, 0.1);
+    }
+
+    /* When a valid option is selected, change color to normal text */
+    .form-group select:valid {
+      color: #1e3d2d;
+    }
+
+    /* Style for the placeholder option */
+    .form-group select option[value=""] {
+      color: #94a3b8;
+    }
+
+    /* Style for regular options */
+    .form-group select option:not([value=""]) {
+      color: #1e3d2d;
+    }
 
     .form-group label {
       display: block;

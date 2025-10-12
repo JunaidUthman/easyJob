@@ -45,6 +45,8 @@ export class LoginComponent {
       next: (res) => {
         if (res.token) {
           localStorage.setItem('Token', res.token);
+          localStorage.setItem('Roles', res.roles ?? '');
+          localStorage.setItem('UserName', res.username ?? '');
           this.router.navigate(['/jobs']);
         } else if (res.msg) {
           alert(res.msg);

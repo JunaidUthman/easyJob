@@ -6,6 +6,7 @@ export interface SignupRequest {
   username: string;
   email: string;
   password: string;
+  userType: string;
 }
 
 export interface SignupResponse {
@@ -20,6 +21,8 @@ export interface LoginRequest {
 export interface LoginResponse {
   token?: string;
   msg?: string;
+  roles?: string;
+  username?: string;
 }
 
 @Injectable({
@@ -27,8 +30,11 @@ export interface LoginResponse {
 })
 export class AuthServiceService {
 
-  private signupUrl = `${environment.apiUrl}/auth/signup`;
-  private loginUrl = `${environment.apiUrl}/auth/login`;
+  // private signupUrl = `${environment.apiUrl}/auth/signup`;
+  // private loginUrl = `${environment.apiUrl}/auth/login`;
+
+  private signupUrl = 'http://localhost:8080/api/auth/signup';
+  private loginUrl = 'http://localhost:8080/api/auth/login';
 
   constructor(private http: HttpClient) { }
 

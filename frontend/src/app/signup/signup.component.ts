@@ -12,12 +12,14 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule , FormsModule , RouterModule]
 })
 export class SignupComponent {
+  userType = '';
   username = '';
   email = '';
   password = '';
   verifyPassword = '';
 
   // Error flags
+  userTypeError = false;
   usernameError = false;
   emailError = false;
   passwordError = false;
@@ -28,6 +30,7 @@ export class SignupComponent {
 
   onSubmit() {
     // Reset error flags
+    this.userTypeError = false;
     this.usernameError = false;
     this.emailError = false;
     this.passwordError = false;
@@ -35,6 +38,10 @@ export class SignupComponent {
 
     let valid = true;
 
+    if (!this.userType) {
+      this.userTypeError = true;
+      valid = false;
+    }
     if (!this.username || this.username.length < 3) {
       this.usernameError = true;
       valid = false;
@@ -59,16 +66,16 @@ export class SignupComponent {
     const signupData: SignupRequest = {
       username: this.username,
       email: this.email,
-      password: this.password
+      password: this.password,
+      userType: this.userType // Add this property to your SignupRequest interface and backend
     };
 
     this.authService.signup(signupData).subscribe({
       next: (res) => {
         alert(res.msg);
-        console.log(res);
       },
       error: (err) => {
-        if(err = 409){
+        if (err.status === 409) {
           this.UserExists = true;
         }
       }

@@ -1,8 +1,6 @@
 package org.example.backend.entities;
 
 import jakarta.persistence.*;
-import org.example.backend.entities.User;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +16,12 @@ public class Job {
     private String description;
     private String location;
 
-    // Many-to-Many with User
+    // 🔹 Job created by a User (the recruiter)
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private User creator;
+
+    // 🔹 Users who applied
     @ManyToMany(mappedBy = "jobs")
     private Set<User> users = new HashSet<>();
 
@@ -36,6 +39,9 @@ public class Job {
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+
+    public User getCreator() { return creator; }
+    public void setCreator(User creator) { this.creator = creator; }
 
     public Set<User> getUsers() { return users; }
     public void setUsers(Set<User> users) { this.users = users; }

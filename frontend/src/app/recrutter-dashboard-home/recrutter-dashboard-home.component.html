@@ -1,0 +1,308 @@
+<div class="content-container">
+  <!-- Stats Cards Section -->
+  <div class="stats-grid">
+    <!-- Job Requests Card -->
+    <div class="stat-card">
+      <div class="stat-icon job-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Job Requests</div>
+        <div class="stat-value">245</div>
+        <div class="stat-change positive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+          <span>12% from last month</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Requests Card -->
+    <div class="stat-card highlight">
+      <div class="stat-icon total-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Total Requests</div>
+        <div class="stat-value">428</div>
+        <div class="stat-change positive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+          <span>18% from last month</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Internship Requests Card -->
+    <div class="stat-card">
+      <div class="stat-icon internship-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <div class="stat-label">Internship Requests</div>
+        <div class="stat-value">183</div>
+        <div class="stat-change positive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+          <span>8% from last month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-grid">
+    <!-- Line Chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">
+          <h3>Request Trends</h3>
+          <p>Monthly overview of job and internship requests</p>
+        </div>
+        <select class="chart-filter">
+          <option>Last 6 Months</option>
+          <option>Last Year</option>
+          <option>All Time</option>
+        </select>
+      </div>
+      <div class="chart-body">
+        <canvas #lineChart id="lineChart" style="width:100%;height:300px;"></canvas>
+      </div>
+    </div>
+
+    <!-- Bar Chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">
+          <h3>Request by Category</h3>
+          <p>Distribution of requests across departments</p>
+        </div>
+        <select class="chart-filter">
+          <option>This Month</option>
+          <option>This Quarter</option>
+          <option>This Year</option>
+        </select>
+      </div>
+      <div class="chart-body">
+        <canvas #barChart id="barChart" style="width:100%;height:300px;"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lists Section -->
+  <div class="lists-grid">
+    <!-- Recent Notifications -->
+    <div class="list-card">
+      <div class="list-header">
+        <h3>Recent Notifications</h3>
+        <a href="#" class="view-all">View All</a>
+      </div>
+      <div class="list-body">
+        <div class="notification-item">
+          <div class="notification-icon success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="notification-content">
+            <div class="notification-text">
+              <strong>Application Approved</strong>
+              <p>John Smith's application for Senior Developer has been approved</p>
+            </div>
+            <div class="notification-time">2 hours ago</div>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div class="notification-content">
+            <div class="notification-text">
+              <strong>New Application Received</strong>
+              <p>Sarah Johnson applied for Marketing Internship position</p>
+            </div>
+            <div class="notification-time">5 hours ago</div>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <div class="notification-content">
+            <div class="notification-text">
+              <strong>Pending Review</strong>
+              <p>3 applications are waiting for your review</p>
+            </div>
+            <div class="notification-time">1 day ago</div>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon error">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <div class="notification-content">
+            <div class="notification-text">
+              <strong>Application Rejected</strong>
+              <p>Michael Brown's application did not meet requirements</p>
+            </div>
+            <div class="notification-time">2 days ago</div>
+          </div>
+        </div>
+
+        <div class="notification-item">
+          <div class="notification-icon info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div class="notification-content">
+            <div class="notification-text">
+              <strong>Interview Scheduled</strong>
+              <p>Interview set for Emily Davis on March 15th at 2:00 PM</p>
+            </div>
+            <div class="notification-time">3 days ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Requests -->
+    <div class="list-card">
+      <div class="list-header">
+        <h3>Recent Requests</h3>
+        <a href="#" class="view-all">View All</a>
+      </div>
+      <div class="list-body">
+        <div class="request-item">
+          <div class="request-info">
+            <div class="request-title">Senior Full Stack Developer</div>
+            <div class="request-meta">
+              <span class="request-type job">Job</span>
+              <span class="request-date">Posted 2 days ago</span>
+            </div>
+          </div>
+          <div class="request-stats">
+            <div class="stat-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              <span>24</span>
+            </div>
+            <span class="status-badge pending">Pending</span>
+          </div>
+        </div>
+
+        <div class="request-item">
+          <div class="request-info">
+            <div class="request-title">Marketing Internship</div>
+            <div class="request-meta">
+              <span class="request-type internship">Internship</span>
+              <span class="request-date">Posted 3 days ago</span>
+            </div>
+          </div>
+          <div class="request-stats">
+            <div class="stat-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              <span>18</span>
+            </div>
+            <span class="status-badge active">Active</span>
+          </div>
+        </div>
+
+        <div class="request-item">
+          <div class="request-info">
+            <div class="request-title">UI/UX Designer</div>
+            <div class="request-meta">
+              <span class="request-type job">Job</span>
+              <span class="request-date">Posted 5 days ago</span>
+            </div>
+          </div>
+          <div class="request-stats">
+            <div class="stat-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              <span>31</span>
+            </div>
+            <span class="status-badge active">Active</span>
+          </div>
+        </div>
+
+        <div class="request-item">
+          <div class="request-info">
+            <div class="request-title">Data Science Internship</div>
+            <div class="request-meta">
+              <span class="request-type internship">Internship</span>
+              <span class="request-date">Posted 1 week ago</span>
+            </div>
+          </div>
+          <div class="request-stats">
+            <div class="stat-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              <span>12</span>
+            </div>
+            <span class="status-badge closed">Closed</span>
+          </div>
+        </div>
+
+        <div class="request-item">
+          <div class="request-info">
+            <div class="request-title">Backend Developer</div>
+            <div class="request-meta">
+              <span class="request-type job">Job</span>
+              <span class="request-date">Posted 1 week ago</span>
+            </div>
+          </div>
+          <div class="request-stats">
+            <div class="stat-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+              <span>27</span>
+            </div>
+            <span class="status-badge active">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

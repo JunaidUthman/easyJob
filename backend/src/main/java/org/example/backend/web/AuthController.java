@@ -1,6 +1,8 @@
 package org.example.backend.web;
 
+import org.example.backend.entities.Role;
 import org.example.backend.entities.User;
+import org.example.backend.repositories.UserRepo;
 import org.example.backend.security.AuthRequest;
 import org.example.backend.security.JwtUtil;
 import org.example.backend.services.UserService;
@@ -24,11 +26,13 @@ public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final UserRepo userRepo;
 
-    public AuthController(JwtUtil jwtUtil , UserService userService , AuthenticationManager  authenticationManager) {
+    public AuthController(UserRepo userRepo , JwtUtil jwtUtil , UserService userService , AuthenticationManager  authenticationManager) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userRepo = userRepo;
     }
 
     @PostMapping("/signup")
@@ -36,7 +40,8 @@ public class AuthController {
         User user = userService.registerUser(
                 body.get("username"),
                 body.get("email"),
-                body.get("password")
+                body.get("password"),
+                body.get("userType")
         );
         if(user == null) {
             return ResponseEntity
@@ -49,14 +54,29 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         try {
+            // Authenticate user
             Authentication authentication = authenticationManager.authenticate(
-                    // this object cause a call to loadUserByUsername from UserDetailsService class to check the if the user exists and check his password (if not , an exception will be thrown)
-                    // u can override this function by creating a class that extends from UserDetailsService
-                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())// here ur supposed to pass the username , bbut overrided loadUserByUsername so it uses email as a unique attribute
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(), request.getPassword()
+                    )
             );
 
+            // Generate JWT
             String token = jwtUtil.generateToken(request.getEmail());
-            return ResponseEntity.ok(Map.of("token", token));
+
+            // Fetch user from DB to get roles
+            User user = userRepo.findByEmail(request.getEmail())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+            // Return token + role(s)
+            return ResponseEntity.ok(Map.of(
+                    "token", token,
+                    "roles", user.getRoles().stream()
+                            .map(Role::getName)
+                            .toList(),
+                    "username", user.getUsername()
+            ));
+
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("msg", "User not found"));
@@ -64,9 +84,11 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("msg", "Invalid password"));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("msg", "an error have accured in the backend"));
+                    .body(Map.of("msg", "An error occurred during login"));
         }
     }
+
 
 }
