@@ -1,0 +1,97 @@
+.create-job-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.create-job-form-container h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3d2d;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.job-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-control {
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #2fa46d;
+  box-shadow: 0 0 0 3px rgba(47, 164, 109, 0.1);
+}
+
+.form-control::placeholder {
+  color: #9ca3af;
+}
+
+.error-message {
+  font-size: 0.875rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+}
+
+.submit-btn {
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #2fa46d, #25845a);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(47, 164, 109, 0.25);
+  margin-top: 1rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(47, 164, 109, 0.35);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .create-job-form-container {
+    max-width: 100%;
+  }
+
+  .create-job-form-container h2 {
+    font-size: 1.25rem;
+  }
+
+  .form-control {
+    padding: 0.625rem;
+  }
+
+  .submit-btn {
+    padding: 0.75rem 1.5rem;
+  }
+}

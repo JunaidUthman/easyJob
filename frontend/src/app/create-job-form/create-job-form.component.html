@@ -1,0 +1,82 @@
+<div class="create-job-form-container">
+
+
+  <h2>Create a New Job</h2>
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="job-form">
+    <div class="form-group">
+      <label for="title">Job Title</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="form-control"
+        placeholder="Enter job title"
+      />
+      <div *ngIf="jobForm.get('title')?.invalid && jobForm.get('title')?.touched" class="error-message">
+        Job title is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        rows="4"
+        placeholder="Enter job description"
+      ></textarea>
+      <div *ngIf="jobForm.get('description')?.invalid && jobForm.get('description')?.touched" class="error-message">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input
+        type="text"
+        id="location"
+        formControlName="location"
+        class="form-control"
+        placeholder="Enter job location"
+      />
+      <div *ngIf="jobForm.get('location')?.invalid && jobForm.get('location')?.touched" class="error-message">
+        Location is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="type">Job Type</label>
+      <select
+        id="type"
+        formControlName="type"
+        class="form-control"
+      >
+        <option value="">Select job type</option>
+        <option *ngFor="let type of jobTypes" [value]="type">{{ type }}</option>
+      </select>
+      <div *ngIf="jobForm.get('type')?.invalid && jobForm.get('type')?.touched" class="error-message">
+        Job type is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Job Image (Optional)</label>
+      <input
+        type="file"
+        id="image"
+        (change)="onFileSelected($event)"
+        class="form-control"
+        accept="image/*"
+      />
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="jobForm.invalid"
+      class="btn btn-primary submit-btn"
+    >
+      Create Job
+    </button>
+  </form>
+</div>

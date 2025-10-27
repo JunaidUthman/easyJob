@@ -322,6 +322,42 @@ background: linear-gradient(135deg, #2fa46d, #25845a);
   }
 }
 
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+
+  /* 🧩 Hide scrollbar but keep scrolling */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* Internet Explorer and Edge */
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari, Opera */
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .page-header h1 {
@@ -367,5 +403,10 @@ background: linear-gradient(135deg, #2fa46d, #25845a);
   .btn-save {
     width: 100%;
     justify-content: center;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
   }
 }

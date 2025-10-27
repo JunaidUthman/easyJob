@@ -5,19 +5,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+//@Configuration
 public class WebConfig {
 
-    @Bean
+    //@Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-//                        .allowedOrigins("https://easyjob-six-zeta.vercel.app/")
-                        .allowedOrigins("http://localhost:4200/")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*");
+                        .allowedOrigins("*") // allow all origins
+                        .allowedMethods("*") // allow all HTTP methods
+                        .allowedHeaders("*") // allow all headers
+                        .exposedHeaders("*") // expose all headers to client (optional)
+                        .allowCredentials(false); // must be false when using "*" for origins
             }
         };
     }

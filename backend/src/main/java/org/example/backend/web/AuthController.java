@@ -64,7 +64,7 @@ public class AuthController {
             // Generate JWT
             String token = jwtUtil.generateToken(request.getEmail());
 
-            // Fetch user from DB to get roles
+            // we do this only for extracting the roles from the user , we can do this to not repeat the fetching :  UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
             User user = userRepo.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 

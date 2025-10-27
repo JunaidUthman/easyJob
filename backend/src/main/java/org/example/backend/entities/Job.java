@@ -1,6 +1,8 @@
 package org.example.backend.entities;
 
 import jakarta.persistence.*;
+import org.example.backend.enums.JobType;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,10 @@ public class Job {
     private String title;
     private String description;
     private String location;
+    private String image;
+
+    @Enumerated(EnumType.STRING)
+    private JobType type;
 
     // 🔹 Job created by a User (the recruiter)
     @ManyToOne
@@ -45,4 +51,31 @@ public class Job {
 
     public Set<User> getUsers() { return users; }
     public void setUsers(Set<User> users) { this.users = users; }
+
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) { this.image = image; }
+
+    public JobType getType() {
+        return type;
+    }
+
+    public void setType(JobType type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", image='" + image + '\'' +
+                ", type=" + type +
+                ", creator=" + creator +
+                ", users=" + users +
+                '}';
+    }
 }
