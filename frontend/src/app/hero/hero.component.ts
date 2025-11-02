@@ -46,4 +46,3 @@ export class HeroComponent implements AfterViewInit {
     swiperEl.initialize();
   }
 }
-

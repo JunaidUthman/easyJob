@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -30,9 +31,7 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -41,12 +40,22 @@ public class JobController {
     private final JobRepo jobRepository;
     private final UserRepo userRepository;
 
-    public JobController(JobRepo jobRepository ,UserRepo userRepository ) {
+    public JobController(JobRepo jobRepository, UserRepo userRepository) {
         this.jobRepository = jobRepository;
         this.userRepository = userRepository;
     }
 
-    // GET all jobs
+    @GetMapping("getAllJobs")
+    public ResponseEntity<List<JobDTO>> getAllJobs() {
+        List<JobDTO> jobs = jobRepository.findAll()
+                .stream()
+                .map(JobDTO::new)
+                .toList();
+
+        return ResponseEntity.ok(jobs);
+    }
+
+    // get jibs by the user authenticated
     @GetMapping("/getJobs")
     public ResponseEntity<List<JobDTO>> getJobsById() {
         try {
@@ -80,6 +89,60 @@ public class JobController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/apply/{jobId}")
+    public ResponseEntity<Map<String, String>> applyJob(@PathVariable Long jobId) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User creator = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+        creator.getJobs().add(job);
+        userRepository.save(creator);
+
+        return ResponseEntity.ok(Map.of("message", "Job applied"));
+    }
+
+    @GetMapping("/getApplications")
+    public ResponseEntity<List<JobDTO>> getApplications() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User creator = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+
+        List<JobDTO> jobsApplyed = creator.getJobs()
+                .stream()
+                .map(JobDTO::new)
+                .toList();
+
+        return ResponseEntity.ok(jobsApplyed);
+    }
+
+    @DeleteMapping("/cancelApplication/{jobId}")
+    public ResponseEntity<Map<String, String>> cancelApplication(@PathVariable Long jobId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job not found"));
+
+        user.getJobs().remove(job);
+        userRepository.save(user);
+
+
+        return ResponseEntity.ok(Map.of("message", "Application cancelled successfully"));
+    }
+
 
 
 

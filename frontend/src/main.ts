@@ -4,16 +4,21 @@ import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@a
 import { AuthInterceptor } from './app/interceptors/auth.interceptor';
 import { appConfig } from './app/app.config';
 import { importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+import { provideToastr } from 'ngx-toastr';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    // ✅ Register HttpClient + Interceptors
+    // Register HttpClient + Interceptors
     provideHttpClient(withInterceptorsFromDi()),
 
-    // ✅ Register your interceptor globally
+    // Register your interceptor globally
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    provideAnimations(), // required animations providers
+    provideToastr(), // Toastr providers
 
-    // ✅ Keep your other providers
+    // Keep your other providers
     ...(appConfig?.providers || [])
   ]
 })

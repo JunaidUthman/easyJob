@@ -1,5 +1,5 @@
 <header>
-  <div [routerLink]="['/']" class="logo">JobFinder</div>
+  <div [routerLink]="['/']" class="logo">EasyJob</div>
   <nav>
 
     <a *ngIf="!isAuthenticated()" [routerLink]="['/signup']">Get Started</a>
@@ -7,9 +7,10 @@
     <a  [routerLink]="['/jobs']">Trending Jobs</a>
     
 
-
+    <a *ngIf="isAuthenticated()" [routerLink]="['/myApplications']">My Applications</a>
     <a *ngIf="isAuthenticated()" [routerLink]="['/login']">Proile</a>
-    <a *ngIf="isAuthenticated()" [routerLink]="['/login']">Log Out</a>
+    
+    <a *ngIf="isAuthenticated()" (click)="logout()" >Log Out</a>
 
 
     <a  [routerLink]="['/login']">Contact Us</a>

@@ -47,6 +47,8 @@ public class SecurityConfig {// this class(esspecially SecurityFilterChain) inte
                 }))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // allow unauthenticated access
+                        .requestMatchers("/api/jobs/getAllJobs").permitAll()
+                        .requestMatchers("/api/jobs/images/**").permitAll()
                         .anyRequest().authenticated() // everything else requires auth
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

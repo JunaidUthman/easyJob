@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   passwordError = false;
   UserExists = false;
 
-  constructor(private router: Router ,private authService: AuthServiceService) {}
+  constructor(private router: Router ,private authService: AuthServiceService,private toastr: ToastrService) {}
 
   onSubmit() {
     // Reset error flags
@@ -48,9 +49,14 @@ export class LoginComponent {
           localStorage.setItem('Roles', res.roles ?? '');
           localStorage.setItem('UserName', res.username ?? '');
           localStorage.setItem('ExpirationTime', (res.ExpirationTime ?? 0).toString());
-          this.router.navigate(['/jobs']);
+          this.showSuccess();
+          setTimeout(()=>{
+            this.router.navigate(['/jobs']);
+          },1500);
 
-          this.startLogoutTimer(res.ExpirationTime ?? 0);
+          const expiresIn = res.ExpirationTime ?? 0;
+          this.authService.startLogoutTimer(expiresIn);
+
 
         } else if (res.msg) {
           alert(res.msg);
@@ -70,18 +76,15 @@ export class LoginComponent {
   }
 
 
-  startLogoutTimer(expirationTime: number) {
-
-    setTimeout(() => {
-        this.logout();
-      }, expirationTime);
-  }
-
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expirationTime');
     localStorage.removeItem('username');
 
     this.router.navigate(['/login']);
+  }
+
+  showSuccess() {
+    this.toastr.success('You Are Logged In Successfully!', 'Success');
   }
 }

@@ -3,6 +3,8 @@ import { AuthServiceService, SignupRequest } from '../service/authService/auth-s
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +28,7 @@ export class SignupComponent {
   verifyPasswordError = false;
   UserExists = false;
 
-  constructor(private authService: AuthServiceService) {}
+  constructor(private authService: AuthServiceService,private toastr: ToastrService,private router:Router) {}
 
   onSubmit() {
     // Reset error flags
@@ -72,7 +74,10 @@ export class SignupComponent {
 
     this.authService.signup(signupData).subscribe({
       next: (res) => {
-        alert(res.msg);
+        this.showSuccess();
+          setTimeout(()=>{
+            this.router.navigate(['/login']);
+          },1500);
       },
       error: (err) => {
         if (err.status === 409) {
@@ -80,5 +85,9 @@ export class SignupComponent {
         }
       }
     });
+  }
+
+  showSuccess() {
+    this.toastr.success('You Registered Successfully, You can LogIn NOW', 'Success');
   }
 }

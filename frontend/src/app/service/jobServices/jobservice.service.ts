@@ -63,11 +63,27 @@ export class JobserviceService {
     return this.http.get<JobResponse[]>(`${this.apiUrl}/getJobs`);
   }
 
+  getAllJobs(): Observable<JobResponse[]> {
+    return this.http.get<JobResponse[]>(`${this.apiUrl}/getAllJobs`);
+  }
+
   getJobImage(filename: string): Observable<string> {
     const url = `${environment.apiUrl}/jobs/images/${filename}`;
     return this.http.get(url, { responseType: 'blob' }).pipe(
       map(blob => URL.createObjectURL(blob)) 
     );
+  }
+
+  applyJob(jobId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/apply/${jobId}`, {});
+  }
+
+  getMyApplications(): Observable<JobResponse[]> {
+    return this.http.get<JobResponse[]>(`${this.apiUrl}/getApplications`);
+  }
+
+  cancelApplication(jobId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/cancelApplication/${jobId}`);
   }
 
 
