@@ -47,7 +47,11 @@ export class LoginComponent {
           localStorage.setItem('Token', res.token);
           localStorage.setItem('Roles', res.roles ?? '');
           localStorage.setItem('UserName', res.username ?? '');
+          localStorage.setItem('ExpirationTime', (res.ExpirationTime ?? 0).toString());
           this.router.navigate(['/jobs']);
+
+          this.startLogoutTimer(res.ExpirationTime ?? 0);
+
         } else if (res.msg) {
           alert(res.msg);
         }
@@ -63,5 +67,21 @@ export class LoginComponent {
         }
       }
     });
+  }
+
+
+  startLogoutTimer(expirationTime: number) {
+
+    setTimeout(() => {
+        this.logout();
+      }, expirationTime);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationTime');
+    localStorage.removeItem('username');
+
+    this.router.navigate(['/login']);
   }
 }

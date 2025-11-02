@@ -1,9 +1,18 @@
 <section class="hero">
+  <swiper-container #swiperContainer class="background-swiper" init="false">
+    <swiper-slide *ngFor="let image of backgroundImages">
+      <img [src]="image.src" alt="Background image">
+    </swiper-slide>
+  </swiper-container>
   <div class="hero-overlay">
     <div class="hero-text">
-      <h1>Find Your Dream Job Today</h1>
-      <p>Discover the latest job openings and get notified instantly!</p>
-      <a href="#get-started" class="cta-button">Get Started</a>
+      <div class="hero-badge">Your Career Journey Starts Here</div>
+      <h1>Unlock Opportunities That Matter</h1>
+      <p>Connect with top employers, explore meaningful careers, and take the next step toward your professional dreams.</p>
+      <a [routerLink]="['/signup']" class="cta-button">
+        Start Your Journey
+        <span class="arrow">→</span>
+      </a>
     </div>
   </div>
 </section>

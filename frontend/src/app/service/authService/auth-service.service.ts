@@ -23,6 +23,7 @@ export interface LoginResponse {
   msg?: string;
   roles?: string;
   username?: string;
+  ExpirationTime?: number;
 }
 
 @Injectable({

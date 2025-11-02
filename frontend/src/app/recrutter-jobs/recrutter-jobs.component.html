@@ -62,8 +62,8 @@
 
     <!-- Jobs List -->
     <div class="jobs-list">
-      <div class="job-card" *ngFor="let job of displayedJobs">
-        
+      <div class="job-card" *ngFor="let job of displayedJobs" (click)="closeMenu(job.id)">
+
         <!-- Company Image -->
         <div class="job-image">
           <img [src]="job.image" />
@@ -74,7 +74,18 @@
           <div class="job-header">
             <div>
               <h3 class="job-title">{{ job.title }}</h3>
-              
+
+            </div>
+            <div class="menu-container" (click)="$event.stopPropagation()">
+              <button class="menu-btn" (click)="toggleMenu(job.id); $event.stopPropagation()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+              </button>
+              <div class="dropdown-menu" *ngIf="showMenu[job.id]" (click)="$event.stopPropagation()">
+                <button class="dropdown-item" (click)="updateJob(job.id)">Update</button>
+                <button class="dropdown-item" (click)="deleteJob(job.id)">Delete</button>
+              </div>
             </div>
           </div>
 
@@ -92,8 +103,8 @@
 
           <!-- Action Buttons -->
           <div class="job-actions">
-            <button class="btn-apply" (click)="applyJob(job.id)">
-              Apply Now
+            <button class="btn-apply" (click)="seeCandidates(job.id)">
+              See Candidates
             </button>
             <button class="btn-save" (click)="saveJob(job.id)" *ngIf="activeTab !== 'saved-jobs'">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">

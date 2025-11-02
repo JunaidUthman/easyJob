@@ -36,7 +36,6 @@ export class CreateJobFormComponent {
   }
 
   onSubmit(): void {
-    alert("hello");
     if (this.jobForm.valid) {
       const formValue = this.jobForm.value;
 
@@ -48,7 +47,7 @@ export class CreateJobFormComponent {
         this.selectedFile || undefined
       ).subscribe({
         next: (response) => {
-          alert('Job created successfully');
+          // alert('Job created successfully');
           // Reset form or navigate
           this.jobForm.reset();
           this.selectedFile = null;

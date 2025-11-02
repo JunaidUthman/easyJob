@@ -32,6 +32,7 @@ interface Job {
 export class RecrutterJobsComponent implements OnInit {
   activeTab: string = 'trending-jobs';
   showCreateJobForm: boolean = false;
+  showMenu: { [key: number]: boolean } = {};
 
   jobs: Job[] = [];
   internships: Job[] = [];
@@ -107,8 +108,30 @@ private mapToJob(jobResponse: JobResponse): Job {
     console.log('Job saved:', jobId);
   }
 
-  applyJob(jobId: number) {
-    console.log('Apply to job:', jobId);
+  seeCandidates(jobId: number) {
+    console.log('See candidates for job:', jobId);
+  }
+
+  toggleMenu(jobId: number) {
+    // Close all other menus
+    Object.keys(this.showMenu).forEach(key => {
+      if (+key !== jobId) {
+        this.showMenu[+key] = false;
+      }
+    });
+    this.showMenu[jobId] = !this.showMenu[jobId];
+  }
+
+  closeMenu(jobId: number) {
+    this.showMenu[jobId] = false;
+  }
+
+  updateJob(jobId: number) {
+    console.log('Update job:', jobId);
+  }
+
+  deleteJob(jobId: number) {
+    console.log('Delete job:', jobId);
   }
 
   openCreateJobForm() {

@@ -71,6 +71,7 @@ public class AuthController {
             // Return token + role(s)
             return ResponseEntity.ok(Map.of(
                     "token", token,
+                    "ExpirationTime", jwtUtil.getExpirationTime(),
                     "roles", user.getRoles().stream()
                             .map(Role::getName)
                             .toList(),
