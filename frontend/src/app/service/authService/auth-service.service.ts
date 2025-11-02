@@ -33,11 +33,11 @@ export interface LoginResponse {
 export class AuthServiceService {
   private logoutTimer: any;
 
-  // private signupUrl = `${environment.apiUrl}/auth/signup`;
-  // private loginUrl = `${environment.apiUrl}/auth/login`;
+  private signupUrl = `${environment.apiUrl}/auth/signup`;
+  private loginUrl = `${environment.apiUrl}/auth/login`;
 
-  private signupUrl = 'http://localhost:8080/api/auth/signup';
-  private loginUrl = 'http://localhost:8080/api/auth/login';
+  // private signupUrl = 'http://localhost:8080/api/auth/signup';
+  // private loginUrl = 'http://localhost:8080/api/auth/login';
 
   constructor(private http: HttpClient,private router:Router) { }
 
