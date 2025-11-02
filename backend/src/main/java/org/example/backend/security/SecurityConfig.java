@@ -39,7 +39,7 @@ public class SecurityConfig {// this class(esspecially SecurityFilterChain) inte
                 .cors(cors -> cors.configurationSource(request -> {
                     var config = new org.springframework.web.cors.CorsConfiguration();
                     config.setAllowedOrigins(List.of("http://localhost:4200")); // only your frontend
-                    config.setAllowedOrigins(List.of("http://https://easy-job-4etg.onrender.com:4200")); // only your frontend
+                    config.setAllowedOrigins(List.of("https://easyjob-six-zeta.vercel.app/:4200")); // only your frontend
                     config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setExposedHeaders(List.of("Authorization"));
