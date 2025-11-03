@@ -7,6 +7,7 @@ import { RecrutterDashboardComponent } from './recrutter-dashboard/recrutter-das
 import { RecrutterDashboardHomeComponent } from './recrutter-dashboard-home/recrutter-dashboard-home.component';
 import { RecrutterJobsComponent } from './recrutter-jobs/recrutter-jobs.component';
 import { MyApplicationsComponent } from './my-applications/my-applications.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'jobs', component: TrendingJobsComponent },
   { path: 'myApplications', component: MyApplicationsComponent },
+  { path: 'about', component: AboutUsComponent },
   {
     path: 'dashboard',
     component: RecrutterDashboardComponent,
