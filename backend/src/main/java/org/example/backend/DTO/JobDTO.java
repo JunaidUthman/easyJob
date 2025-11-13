@@ -1,7 +1,9 @@
 package org.example.backend.DTO;
 
+import lombok.AllArgsConstructor;
 import org.example.backend.entities.Job;
 
+@AllArgsConstructor
 public class JobDTO {
     private Long id;
     private String title;

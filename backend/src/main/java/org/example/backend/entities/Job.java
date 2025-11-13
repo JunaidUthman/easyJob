@@ -1,6 +1,7 @@
 package org.example.backend.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import org.example.backend.enums.JobType;
 
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "jobs")
+@AllArgsConstructor
 public class Job {
 
     @Id
@@ -18,9 +20,18 @@ public class Job {
     private String description;
     private String location;
     private String image;
-
     @Enumerated(EnumType.STRING)
     private JobType type;
+
+    public Job(Long id,String title, String description, String location, String image,JobType type) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.image = image;
+        this.type = type;
+    }
+
 
     // 🔹 Job created by a User (the recruiter)
     @ManyToOne
@@ -32,6 +43,7 @@ public class Job {
     private Set<User> users = new HashSet<>();
 
     public Job() {}
+
 
     // Getters and setters
     public Long getId() { return id; }
