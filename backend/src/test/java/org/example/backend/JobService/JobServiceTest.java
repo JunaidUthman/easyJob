@@ -1,4 +1,4 @@
-package org.example.backend;
+package org.example.backend.JobService;
 
 
 import org.example.backend.DTO.JobDTO;
