@@ -23,6 +23,8 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/jobs")
+
+//TODO :: update routes
 public class JobController {
 
     private final JobService jobService;
