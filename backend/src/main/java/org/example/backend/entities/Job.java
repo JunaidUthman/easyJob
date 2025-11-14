@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Job {
 
+//id of the job
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
