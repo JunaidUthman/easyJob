@@ -29,12 +29,12 @@ jobs:
         run: mvn -B clean verify
 
       # Automatically create PR to main if tests pass
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          branch: dev        # source branch
-          base: main         # target branch
-          title: "Auto PR from dev to main"
-          body: "This PR is automatically created after all tests passed"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     branch: dev        # source branch
+      #     base: main         # target branch
+      #     title: "Auto PR from dev to main"
+      #     body: "This PR is automatically created after all tests passed"
+      #     token: ${{ secrets.GITHUB_TOKEN }}
 

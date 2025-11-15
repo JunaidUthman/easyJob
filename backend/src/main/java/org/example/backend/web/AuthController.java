@@ -61,6 +61,19 @@ public class AuthController {
                     )
             );
 
+            //UsernamePasswordAuthenticationToken is an object that Spring Security uses to encapsulate the username and password and authenticated boolean(false by default)
+            //once the function authenticate() secceeds it returns an Authentication object containing : A fully loaded UserDetails object, Authenticated = true,Authorities
+
+            //if the function do not secceed it throws an exception(see the exceptions below)
+
+            //now lets understand how authenticationManager.authenticate() works :
+            // this function exists in AuthenticationManager interface. its implemented by ProviderManager class.
+            //this class holds a list of different AuthenticationProvider instances. each one is responsible for checking if a user is authenticated in a specific way. exemples : DaoAuthenticationProvider(the default one) , JwtAuthenticationProvider , LdapAuthenticationProvider
+            //in this case , the DaoAuthenticationProvider is used by default.it calls CostumeUserService.loadUserByUsername(email) to load user details(this part u can code it urself). and then compares the provided password with the stored password(using PasswordEncoder) (this part is handled internally by Spring security, u can ovverride it but mablanch).
+            // once everything is ok , it returns a fully populated Authentication object.
+
+
+
             // Generate JWT
             String token = jwtUtil.generateToken(request.getEmail());
 
@@ -78,10 +91,10 @@ public class AuthController {
                     "username", user.getUsername()
             ));
 
-        } catch (UsernameNotFoundException e) {
+        } catch (UsernameNotFoundException e) {//cannot find a user with the given principal (email/username).
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("msg", "User not found"));
-        } catch (BadCredentialsException e) {
+        } catch (BadCredentialsException e) {//. Thrown if the username/email is correct but the password does not match
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("msg", "Invalid password"));
         } catch (Exception e) {
@@ -89,6 +102,10 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("msg", "An error occurred during login"));
         }
+        //there is mor exceptions like :
+        //DisabledException : Thrown if an authentication request is rejected because the account is disabled.
+        //LockedException : Thrown if the user account is locked (e.g., due to too many failed login attempts).
+        //AccountExpiredException : Thrown if the user account has expired.
     }
 
 
