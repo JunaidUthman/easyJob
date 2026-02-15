@@ -15,6 +15,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -55,15 +56,37 @@ public class JobController {
         }
     }
 
-    @GetMapping("/images/{filename}")
+    @GetMapping("/images/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) throws MalformedURLException {
-        Path path = Paths.get("static/uploads/images").resolve(filename);
+        String userDir = System.getProperty("user.dir");
+        Path rootPath = Paths.get(userDir).resolve("static/uploads/images");
+        Path path = rootPath.resolve(filename);
+
+        System.out.println("--- LOGO FETCH DEBUG ---");
+        System.out.println("Working Directory: " + userDir);
+        System.out.println("Requested Filename: " + filename);
+        System.out.println("Resolved Path: " + path.toAbsolutePath());
+
+        if (!Files.exists(path)) {
+            System.err.println("CRITICAL: File does NOT exist at resolved path!");
+            // Try fallback to backend folder if running from root
+            if (!userDir.endsWith("backend")) {
+                Path fallbackPath = Paths.get(userDir, "backend", "static", "uploads", "images").resolve(filename);
+                System.out.println("Checking fallback path: " + fallbackPath.toAbsolutePath());
+                if (Files.exists(fallbackPath)) {
+                    System.out.println("Found file in fallback path!");
+                    path = fallbackPath;
+                }
+            }
+        }
+
         Resource resource = new UrlResource(path.toUri());
         if (resource.exists() || resource.isReadable()) {
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG) // or dynamically detect
+                    .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);
         } else {
+            System.err.println("Final check: Resource not found or not readable.");
             return ResponseEntity.notFound().build();
         }
     }

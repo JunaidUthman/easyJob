@@ -10,6 +10,12 @@ import org.example.backend.enums.JobType;
 import org.example.backend.repositories.JobRepo;
 import org.example.backend.repositories.UserRepo;
 import org.springframework.stereotype.Service;
+import org.example.backend.DTO.ApplicationRequestDTO;
+import org.example.backend.entities.Candidate;
+import org.example.backend.entities.Notification;
+import org.example.backend.DTO.ApplicationRequestDTO;
+import org.example.backend.entities.Candidate;
+import org.example.backend.entities.Notification;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -174,8 +180,7 @@ public class JobService {
 
         private String saveFile(MultipartFile file) throws Exception {
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                String uploadDir = "static/uploads/images/";
-                Path uploadPath = Paths.get(uploadDir);
+                Path uploadPath = Paths.get(System.getProperty("user.dir")).resolve("static/uploads/images");
                 if (!Files.exists(uploadPath)) {
                         Files.createDirectories(uploadPath);
                 }
@@ -184,4 +189,56 @@ public class JobService {
                 return fileName;
         }
 
+        public List<ApplicationRequestDTO> getRecruiterRequests(String email) {
+                User recruiter = userRepository.findByEmail(email)
+                                .orElseThrow(() -> new RuntimeException("User not found"));
+
+                return recruiter.getCreatedJobs().stream()
+                                .flatMap(job -> job.getUsers().stream()
+                                                .map(applicant -> {
+                                                        ApplicationRequestDTO dto = new ApplicationRequestDTO();
+                                                        dto.setJobId(job.getId());
+                                                        dto.setJobTitle(job.getTitle());
+                                                        dto.setJobDescription(job.getDescription());
+                                                        dto.setApplicantId(applicant.getId());
+                                                        dto.setApplicantName(applicant.getUsername());
+                                                        dto.setApplicantEmail(applicant.getEmail());
+
+                                                        // Handle Candidate specific fields safely
+                                                        if (applicant instanceof Candidate) {
+                                                                Candidate candidate = (Candidate) applicant;
+                                                                dto.setApplicantImage(candidate.getProfilePicture());
+                                                                dto.setEducationLevel(candidate.getEducationLevel());
+                                                        } else {
+                                                                dto.setApplicantImage(null);
+                                                                dto.setEducationLevel(null);
+                                                        }
+
+                                                        return dto;
+                                                }))
+                                .toList();
+        }
+
+        public Map<String, String> acceptApplication(Long jobId, Long applicantId) {
+                User applicant = userRepository.findById(applicantId)
+                                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+
+                Job job = jobRepository.findById(jobId)
+                                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+                Notification notification = new Notification();
+                notification.setMessage("Congratulations! Your application for the job '" + job.getTitle()
+                                + "' has been accepted by " + job.getCompany() + ".");
+                notification.setReadStatus(false);
+                notification.setUser(applicant);
+
+                if (applicant.getNotifications() == null) {
+                        applicant.setNotifications(new java.util.ArrayList<>());
+                }
+                applicant.getNotifications().add(notification);
+
+                userRepository.save(applicant);
+
+                return Map.of("message", "Application accepted and notification sent.");
+        }
 }

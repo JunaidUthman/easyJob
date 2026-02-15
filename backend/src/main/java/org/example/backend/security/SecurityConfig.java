@@ -49,6 +49,7 @@ public class SecurityConfig {// this class(esspecially SecurityFilterChain) inte
                         .requestMatchers("/api/auth/**").permitAll() // allow unauthenticated access
                         .requestMatchers("/api/jobs/getAllJobs").permitAll()
                         .requestMatchers("/api/jobs/images/**").permitAll()
+                        .requestMatchers("/api/recruiter/ping").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated() // everything else requires auth
                 )

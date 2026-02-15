@@ -9,6 +9,7 @@ import { RecrutterJobsComponent } from './recrutter-jobs/recrutter-jobs.componen
 import { MyApplicationsComponent } from './my-applications/my-applications.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RecruiterRequestsComponent } from './recrutter-dashboard/recruiter-requests/recruiter-requests.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -26,7 +27,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: RecrutterDashboardHomeComponent },
       { path: 'jobs', component: RecrutterJobsComponent },
-
+      { path: 'requests', component: RecruiterRequestsComponent },
     ]
   },
 ];
